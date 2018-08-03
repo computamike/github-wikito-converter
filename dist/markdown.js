@@ -43,6 +43,9 @@ var Markdown = (function () {
       };
 
       this.mainRenderer.image = function (href, title, text) {
+        if (href.match(/^data:/)) {
+          return util.format('<img src="%s" />', href);
+        }
         if (!href.match(/^https?:\/\//)) {
           href = path.resolve(self.wikiPath, href);
           return util.format('<img src="%s" />', datauri(href));
